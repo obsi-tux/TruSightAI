@@ -1,0 +1,12 @@
+# Resolved at scaffold time from PyPI (latest stable), 2026-10-22. See docs/VERSIONS.md.
+fastapi==0.159.1
+uvicorn[standard]
+pydantic
+scikit-learn
+joblib
+tldextract
+rapidfuzz
+httpx
+pytest
+ruff
+jsonschema

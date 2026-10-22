@@ -1,0 +1,8 @@
+line-length = 100
+target-version = "py311"
+
+[lint]
+select = ["E", "F", "I", "UP", "B"]
+# Deliberate best-effort guards required by TECHNOLOGY.md §4:
+# "/detect must return a valid response even if ML model file is missing",
+# RDAP "on failure return no signal, never fail". These need broad catches.

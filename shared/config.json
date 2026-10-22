@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "_note": "Per TECHNOLOGY.md section 8: helplines and reporting portals use TODO markers. NEVER invent a number or URL. Fill only from official government sources (section 12).",
+  "helplines": {
+    "cyber_crime_report_india": "TODO",
+    "banking_fraud_helpline_india": "TODO",
+    "women_child_helpline_india": "TODO",
+    "general_emergency_india": "TODO"
+  },
+  "reporting_portals": {
+    "cyber_crime_portal_india": "TODO",
+    "spam_reporting_sms": "TODO"
+  },
+  "labels": {
+    "RED": { "en": "High risk — likely a scam", "hi": "उच्च जोखिम — संभवतः धोखा" },
+    "AMBER": { "en": "Suspicious — verify before acting", "hi": "संदिग्ध — पहले जाँच लें" },
+    "GREEN": { "en": "No strong scam signals found", "hi": "ठगी के संकेत नहीं मिले" }
+  }
+}
