@@ -15,6 +15,51 @@ RULES_PATH = Path(__file__).resolve().parents[3] / "shared" / "rules.json"
 _DEVANAGARI = re.compile(r"[\u0900-\u097F]")
 
 
+@dataclass(frozen=True)
+class RuleMeta:
+    """Static mapping rule_id -> (scam_type, force_red). The shared/rules.json
+    format (version 1) has no scam_type/force_red fields; the frozen /analyze
+    contract requires them, so they live here until rules.json is versioned up
+    (recorded in docs/CONFLICTS.md)."""
+
+    id: str
+    scam_type: str
+    force_red: bool
+
+
+RULE_META: dict[str, RuleMeta] = {
+    m.id: m
+    for m in [
+        RuleMeta("urgency_en", "impersonation", False),
+        RuleMeta("urgency_hi", "impersonation", False),
+        RuleMeta("payment_demand_en", "impersonation", False),
+        RuleMeta("payment_demand_hi", "impersonation", False),
+        RuleMeta("remote_access_app", "vishing", True),
+        RuleMeta("secrecy_demand", "vishing", False),
+        RuleMeta("otp_fishing", "otp_fraud", True),
+        RuleMeta("otp_fishing_hi", "otp_fraud", True),
+        RuleMeta("aadhaar_pan_demand", "kyc_bank", False),
+        RuleMeta("bank_impersonation", "kyc_bank", False),
+        RuleMeta("police_demand", "impersonation", False),
+        RuleMeta("courier_vishing", "parcel", False),
+        RuleMeta("loan_upfront_fee", "fake_job", False),
+        RuleMeta("prize_claim", "lottery", False),
+        RuleMeta("url_shortener", "phishing_link", False),
+        RuleMeta("suspicious_tld", "phishing_link", False),
+        RuleMeta("ip_host_url", "phishing_link", False),
+        RuleMeta("lookalike_domain", "phishing_link", False),
+        RuleMeta("whatsapp_link", "phishing_link", False),
+        RuleMeta("benign_otp_protect", "none", False),
+    ]
+}
+
+# Raw-weight thresholds for the 0..100 contract scale. A single force_red rule
+# (otp_fishing raw 30) must reach RED (>70), so a matched force_red rule maps
+# to at least 75 via _FORCE_FLOOR. Calibration lives in eval (P3).
+_RAW_TO_100 = 250.0
+_FORCE_FLOOR = 75.0
+
+
 @dataclass
 class CompiledRule:
     id: str
