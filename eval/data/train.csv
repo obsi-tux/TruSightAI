@@ -1,0 +1,6 @@
+id,text,lang,label,scam_type,source
+1,"Dear customer your loan approved! Immediately pay processing fee to release money, transfer now, do not tell anyone.",en,1,loan_upfront_fee,synthetic_placeholder
+2,"Your OTP is 483920. Do not share it with anyone. - Your Bank",en,0,benign,synthetic_placeholder
+3,"तुरंत पैसे भेजो नहीं तो आपका खाता बंद हो जाएगा। ग्राहक सेवा केंद्र से कॉल किया था।",hi,1,vishing,synthetic_placeholder_handwritten
+4,"Aapka parcel stuck hai customs duty pay karo link par click karo",hinglish,1,courier_vishing,synthetic_placeholder_handwritten
+5,"Delivery update: your order arrives tomorrow, keep phone handy",en,0,benign,synthetic_placeholder

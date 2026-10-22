@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/detect.schema.json",
+  "title": "DetectResponse",
+  "description": "Response of POST /detect on detect-py (internal, dev port 8001). UNVERIFIED PLACEHOLDER: authoritative contracts/*.json were not provided; inferred from docs/TECHNOLOGY.md sections 3-4. Reconcile before gateway-rs integration.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["ml_score", "rule_score", "label", "signals"],
+  "properties": {
+    "ml_score": {
+      "type": ["number", "null"],
+      "minimum": 0,
+      "maximum": 1,
+      "description": "ML probability of scam. null when the model file is missing (gateway-rs must handle null per TECHNOLOGY.md section 4)."
+    },
+    "rule_score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Normalized weighted score from shared/rules.json."
+    },
+    "label": {
+      "enum": ["RED", "AMBER", "GREEN"],
+      "description": "Local classification before gateway fusion."
+    },
+    "lang": {
+      "enum": ["en", "hi", "hinglish", "unknown"]
+    },
+    "scam_type_hint": {
+      "type": ["string", "null"],
+      "description": "Best rule-category guess (e.g. loan, otp, vishing); null if none matched."
+    },
+    "signals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["type", "detail"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Stable signal id: ml_missing | url_shortener | typosquat | punycode | ip_host | rdap_fail | domain_young | urgency_language | payment_demand | remote_access_request | secrecy_demand | vishing_pattern | rule:<rule_id>"
+          },
+          "detail": {
+            "type": "string",
+            "description": "Short evidence string. Must not echo raw message content beyond the matched token."
+          }
+        }
+      }
+    }
+  }
+}
